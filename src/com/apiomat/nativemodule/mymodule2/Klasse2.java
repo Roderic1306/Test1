@@ -49,7 +49,7 @@ import com.apiomat.nativemodule.AuthState;
 @Model( moduleName = "MyModule2",
     hooksClassNameTransient = "com.apiomat.nativemodule.mymodule2.Klasse2HooksTransient", 
     hooksClassNameNonTransient = "com.apiomat.nativemodule.mymodule2.Klasse2HooksNonTransient", 
-            isTransient = false,    requiredUserRoleCreate=UserRole.User, requiredUserRoleRead=UserRole.User,
+     useOwnAuth = AuthState.YES,        isTransient = false,    requiredUserRoleCreate=UserRole.User, requiredUserRoleRead=UserRole.User,
     requiredUserRoleWrite=UserRole.Owner, restrictResourceAccess=false,
     allowedRolesCreate={}, allowedRolesRead={},
     allowedRolesWrite={}, allowedRolesGrant={})
