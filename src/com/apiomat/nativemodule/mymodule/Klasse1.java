@@ -38,6 +38,7 @@ import com.esotericsoftware.kryo.io.Output;
 import com.apiomat.nativemodule.mymodule2.Klasse2;
 
 import com.apiomat.nativemodule.basics.*;
+import com.apiomat.nativemodule.mymodule2.*;
 import com.apiomat.nativemodule.AuthState;
 /**
 * Generated class for your Klasse1 data model
@@ -66,6 +67,7 @@ public class Klasse1 extends Klasse2
     public static final String MODEL_NAME = "Klasse1";
 
     /** class specific attributes */
+    private com.apiomat.nativemodule.mymodule2.Klasse2 reffd = null;
     /**
      * Protected constructor; to create a new instance, use the createObject() method
      */
@@ -90,11 +92,54 @@ public class Klasse1 extends Klasse2
         return MODEL_NAME;
     }
 
+    public com.apiomat.nativemodule.mymodule2.Klasse2 getReffd()
+    { 
+        if(this.reffd == null)
+        {
+            /* do this by reflection to be backward compartible */
+            try
+            {
+                Method m = AbstractClientDataModel.class.getMethod( "loadReference", String.class,  Class.class );
+                this.reffd =  ( com.apiomat.nativemodule.mymodule2.Klasse2 ) m.invoke( this, "reffd", com.apiomat.nativemodule.mymodule2.Klasse2.class );
+            }
+            catch ( NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e )
+            {
+                 //silently ignored
+            }
+        }   
+        return this.reffd;
+    }
+
+    public void postReffd( final com.apiomat.nativemodule.mymodule2.Klasse2 refData )
+    {
+        addReference( "reffd", refData );
+        this.reffd = refData;
+    }
+
+    public void removeReffd( final com.apiomat.nativemodule.mymodule2.Klasse2 refData )
+    {
+        removeReference( "reffd", refData );
+        this.reffd = null;
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public void write( final Kryo kryo, final Output output )
     {
         super.write( kryo, output );
+            int reffdDepth = kryo.getContext( ).get( "reffdDepth") != null? (int)kryo.getContext( ).get( "reffdDepth") : 0;
+        int reffdMaxDepth = (int) kryo.getContext( ).get( "maxDepth");
+        kryo.getContext( ).put( "reffdDepth", reffdDepth +1 );
+
+        output.writeBoolean( this.reffd != null && reffdDepth < reffdMaxDepth);
+        if( this.reffd != null && reffdDepth < reffdMaxDepth)
+        {
+            output.writeString( this.reffd.getModuleName( ) );
+            output.writeString( this.reffd.getModelName( ) );
+            this.reffd.setMethods( this.methods );
+            this.reffd.setResourceMethods( this.resourceMethods );
+            this.reffd.write( kryo, output );
+        }
     }
 
     @Override
@@ -105,5 +150,13 @@ public class Klasse1 extends Klasse2
 
         final Request req = (Request)kryo.getContext( ).get( "creq" );
         req.toString( );
+            final IStaticMethods AOMreffd = (IStaticMethods)kryo.getContext( ).get( "AOM" );
+        if( input.readBoolean() )
+        {
+            final String reffdModule = input.readString();
+            final String reffdClass = input.readString();
+            this.reffd = ( com.apiomat.nativemodule.mymodule2.Klasse2 ) AOMreffd.createObject( kryo.getContext( ).get( "appName").toString( ), reffdModule, reffdClass, req);
+            this.reffd.read( kryo, input );
+        }
     }
 }
