@@ -38,6 +38,7 @@ import com.esotericsoftware.kryo.io.Output;
 import com.apiomat.nativemodule.mymodule2.Klasse2;
 
 import com.apiomat.nativemodule.basics.*;
+import com.apiomat.nativemodule.mymodule2.*;
 import com.apiomat.nativemodule.AuthState;
 /**
 * Generated class for your Klasse1 data model
@@ -66,6 +67,7 @@ public class Klasse1 extends Klasse2
     public static final String MODEL_NAME = "Klasse1";
 
     /** class specific attributes */
+    private com.apiomat.nativemodule.mymodule2.Klasse2 hhh = null;
     /**
      * Protected constructor; to create a new instance, use the createObject() method
      */
@@ -90,11 +92,54 @@ public class Klasse1 extends Klasse2
         return MODEL_NAME;
     }
 
+    public com.apiomat.nativemodule.mymodule2.Klasse2 getHhh()
+    { 
+        if(this.hhh == null)
+        {
+            /* do this by reflection to be backward compartible */
+            try
+            {
+                Method m = AbstractClientDataModel.class.getMethod( "loadReference", String.class,  Class.class );
+                this.hhh =  ( com.apiomat.nativemodule.mymodule2.Klasse2 ) m.invoke( this, "hhh", com.apiomat.nativemodule.mymodule2.Klasse2.class );
+            }
+            catch ( NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e )
+            {
+                 //silently ignored
+            }
+        }   
+        return this.hhh;
+    }
+
+    public void postHhh( final com.apiomat.nativemodule.mymodule2.Klasse2 refData )
+    {
+        addReference( "hhh", refData );
+        this.hhh = refData;
+    }
+
+    public void removeHhh( final com.apiomat.nativemodule.mymodule2.Klasse2 refData )
+    {
+        removeReference( "hhh", refData );
+        this.hhh = null;
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public void write( final Kryo kryo, final Output output )
     {
         super.write( kryo, output );
+            int hhhDepth = kryo.getContext( ).get( "hhhDepth") != null? (int)kryo.getContext( ).get( "hhhDepth") : 0;
+        int hhhMaxDepth = (int) kryo.getContext( ).get( "maxDepth");
+        kryo.getContext( ).put( "hhhDepth", hhhDepth +1 );
+
+        output.writeBoolean( this.hhh != null && hhhDepth < hhhMaxDepth);
+        if( this.hhh != null && hhhDepth < hhhMaxDepth)
+        {
+            output.writeString( this.hhh.getModuleName( ) );
+            output.writeString( this.hhh.getModelName( ) );
+            this.hhh.setMethods( this.methods );
+            this.hhh.setResourceMethods( this.resourceMethods );
+            this.hhh.write( kryo, output );
+        }
     }
 
     @Override
@@ -105,5 +150,13 @@ public class Klasse1 extends Klasse2
 
         final Request req = (Request)kryo.getContext( ).get( "creq" );
         req.toString( );
+            final IStaticMethods AOMhhh = (IStaticMethods)kryo.getContext( ).get( "AOM" );
+        if( input.readBoolean() )
+        {
+            final String hhhModule = input.readString();
+            final String hhhClass = input.readString();
+            this.hhh = ( com.apiomat.nativemodule.mymodule2.Klasse2 ) AOMhhh.createObject( kryo.getContext( ).get( "appName").toString( ), hhhModule, hhhClass, req);
+            this.hhh.read( kryo, input );
+        }
     }
 }
