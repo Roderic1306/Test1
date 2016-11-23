@@ -50,7 +50,7 @@ import com.apiomat.nativemodule.AuthState;
 @Model( moduleName = "A",
     hooksClassNameTransient = "com.apiomat.nativemodule.a.KaHooksTransient", 
     hooksClassNameNonTransient = "com.apiomat.nativemodule.a.KaHooksNonTransient", 
-            isTransient = false,    requiredUserRoleCreate=UserRole.User, requiredUserRoleRead=UserRole.User,
+     useOwnAuth = AuthState.YES,        isTransient = false,    requiredUserRoleCreate=UserRole.User, requiredUserRoleRead=UserRole.User,
     requiredUserRoleWrite=UserRole.Owner, restrictResourceAccess=false,
     allowedRolesCreate={}, allowedRolesRead={},
     allowedRolesWrite={}, allowedRolesGrant={})
